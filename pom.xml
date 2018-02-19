@@ -15,6 +15,15 @@
             <version>5.0.2.Final</version>
         </dependency>
 
+        <!-- ojdbc6.jar -->
+        <dependency>
+            <groupId>com.myjar</groupId>
+            <artifactId>database</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/ojdbc6.jar</systemPath>
+        </dependency>
+
         <!-- Java 6 = JAX-B Version 2.0   -->
         <!-- Java 7 = JAX-B Version 2.2.3 -->
         <!-- Java 8 = JAX-B Version 2.2.8 -->

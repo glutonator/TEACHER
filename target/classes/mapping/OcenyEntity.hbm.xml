@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="mapping.OcenyEntity" table="OCENY" schema="BD2A20">
+        <id name="idOceny">
+            <column name="ID_OCENY" sql-type="number(8)" precision="8"/>
+        </id>
+        <property name="idStudenta">
+            <column name="ID_STUDENTA" sql-type="number(10)" precision="10"/>
+        </property>
+        <property name="kodPrzedmiotu">
+            <column name="KOD_PRZEDMIOTU" sql-type="varchar2(3 char)" length="3"/>
+        </property>
+        <property name="rok">
+            <column name="ROK" sql-type="number(4)" precision="4"/>
+        </property>
+        <property name="rodzajSemestru">
+            <column name="RODZAJ_SEMESTRU" sql-type="char(1 char)" length="1"/>
+        </property>
+        <property name="idTypuOceny">
+            <column name="ID_TYPU_OCENY" sql-type="number(5)" precision="5"/>
+        </property>
+        <property name="wartosc">
+            <column name="WARTOSC" sql-type="number(2,1)" precision="2" scale="1"/>
+        </property>
+        <property name="dataICzasWystawienia">
+            <column name="DATA_I_CZAS_WYSTAWIENIA" sql-type="date"/>
+        </property>
+        <property name="komentarz">
+            <column name="KOMENTARZ" sql-type="varchar2(50 char)" length="50" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

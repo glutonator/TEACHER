@@ -26,7 +26,7 @@
             <artifactId>database</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/ojdbc6.jar</systemPath>
+            <systemPath>${basedir}/lib/ojdbc6.jar</systemPath>
         </dependency>
 
         <!-- Java 6 = JAX-B Version 2.0   -->
@@ -103,5 +103,23 @@
 -->
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>bd.Teacher</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>

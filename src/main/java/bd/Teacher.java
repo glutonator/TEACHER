@@ -39,10 +39,16 @@ public class Teacher {
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
             List subjects = session.createQuery("FROM PrzedmiotyEntity").list();
-            for (Object subject_tmp : subjects) {
-                PrzedmiotyEntity subject = (PrzedmiotyEntity) subject_tmp;
-                System.out.println(subject.getNazwa());
-            }
+
+            subjects.forEach((Object sub_tmp) -> {
+               // PrzedmiotyEntity subject = (PrzedmiotyEntity) sub_tmp;
+               // System.out.println(subject.getNazwa());
+                System.out.println(((PrzedmiotyEntity) sub_tmp).getNazwa());
+            });
+//            for (Object subject_tmp : subjects) {
+//                PrzedmiotyEntity subject = (PrzedmiotyEntity) subject_tmp;
+//                System.out.println(subject.getNazwa());
+//            }
 
             tx.commit();
         } catch (HibernateException e) {

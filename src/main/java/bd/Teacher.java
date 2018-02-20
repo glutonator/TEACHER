@@ -34,14 +34,13 @@ public class Teacher {
     }
 
     public void listPrzedmioty() {
-        Session session = factory.openSession();
         Transaction tx = null;
 
-        try {
+        try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
             List subjects = session.createQuery("FROM PrzedmiotyEntity").list();
-            for (Iterator it = subjects.iterator(); it.hasNext(); ) {
-                PrzedmiotyEntity subject = (PrzedmiotyEntity) it.next();
+            for (Object subject_tmp : subjects) {
+                PrzedmiotyEntity subject = (PrzedmiotyEntity) subject_tmp;
                 System.out.println(subject.getNazwa());
             }
 
@@ -49,8 +48,6 @@ public class Teacher {
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
-        } finally {
-            session.close();
         }
     }
 

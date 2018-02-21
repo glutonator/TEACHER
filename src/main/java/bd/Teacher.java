@@ -13,7 +13,7 @@ import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-
+// test job job kotekr entity
 public class Teacher {
     private static SessionFactory factory;
 

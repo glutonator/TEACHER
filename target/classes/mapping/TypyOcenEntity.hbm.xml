@@ -17,5 +17,14 @@
         <property name="waga">
             <column name="WAGA" sql-type="number(2)" precision="2"/>
         </property>
+        <many-to-one name="przedmiotyByKodPrzedmiotu" class="mapping.PrzedmiotyEntity">
+            <column name="KOD_PRZEDMIOTU"/>
+        </many-to-one>
+        <set name="oceniesByIdTypuOceny" inverse="true">
+            <key>
+                <column name="ID_TYPU_OCENY"/>
+            </key>
+            <one-to-many not-found="ignore" class="mapping.OcenyEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

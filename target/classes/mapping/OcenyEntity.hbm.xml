@@ -32,5 +32,14 @@
         <property name="komentarz">
             <column name="KOMENTARZ" sql-type="varchar2(50 char)" length="50" not-null="true"/>
         </property>
+        <many-to-one name="ocenyKoncowe" class="mapping.OcenyKoncoweEntity">
+            <column name="ID_STUDENTA"/>
+            <column name="KOD_PRZEDMIOTU"/>
+            <column name="ROK"/>
+            <column name="RODZAJ_SEMESTRU"/>
+        </many-to-one>
+        <many-to-one name="typyOcenByIdTypuOceny" class="mapping.TypyOcenEntity">
+            <column name="ID_TYPU_OCENY"/>
+        </many-to-one>
     </class>
 </hibernate-mapping>

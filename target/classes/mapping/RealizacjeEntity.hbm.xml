@@ -16,5 +16,16 @@
                 <column name="RODZAJ_SEMESTRU" sql-type="char(1 char)" length="1"/>
             </key-property>
         </composite-id>
+        <many-to-one name="przedmiotyByKodPrzedmiotu" class="mapping.PrzedmiotyEntity">
+            <column name="KOD_PRZEDMIOTU"/>
+        </many-to-one>
+        <set name="ocenyKoncowes" inverse="true">
+            <key>
+                <column name="KOD_PRZEDMIOTU"/>
+                <column name="ROK"/>
+                <column name="RODZAJ_SEMESTRU"/>
+            </key>
+            <one-to-many not-found="ignore" class="mapping.OcenyKoncoweEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

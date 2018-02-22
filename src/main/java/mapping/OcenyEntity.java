@@ -2,6 +2,7 @@ package mapping;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Objects;
 
 @Entity
 @Table(name = "OCENY", schema = "BD2A20", catalog = "")
@@ -15,6 +16,8 @@ public class OcenyEntity {
     private long wartosc;
     private Time dataICzasWystawienia;
     private String komentarz;
+    private OcenyKoncoweEntity ocenyKoncowe;
+    private TypyOcenEntity typyOcenByIdTypuOceny;
 
     @Id
     @Column(name = "ID_OCENY", nullable = false, precision = 0)
@@ -110,36 +113,41 @@ public class OcenyEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OcenyEntity that = (OcenyEntity) o;
-
-        if (idOceny != that.idOceny) return false;
-        if (idStudenta != that.idStudenta) return false;
-        if (rok != that.rok) return false;
-        if (idTypuOceny != that.idTypuOceny) return false;
-        if (wartosc != that.wartosc) return false;
-        if (kodPrzedmiotu != null ? !kodPrzedmiotu.equals(that.kodPrzedmiotu) : that.kodPrzedmiotu != null)
-            return false;
-        if (rodzajSemestru != null ? !rodzajSemestru.equals(that.rodzajSemestru) : that.rodzajSemestru != null)
-            return false;
-        if (dataICzasWystawienia != null ? !dataICzasWystawienia.equals(that.dataICzasWystawienia) : that.dataICzasWystawienia != null)
-            return false;
-        if (komentarz != null ? !komentarz.equals(that.komentarz) : that.komentarz != null) return false;
-
-        return true;
+        return idOceny == that.idOceny &&
+                idStudenta == that.idStudenta &&
+                rok == that.rok &&
+                idTypuOceny == that.idTypuOceny &&
+                wartosc == that.wartosc &&
+                Objects.equals(kodPrzedmiotu, that.kodPrzedmiotu) &&
+                Objects.equals(rodzajSemestru, that.rodzajSemestru) &&
+                Objects.equals(dataICzasWystawienia, that.dataICzasWystawienia) &&
+                Objects.equals(komentarz, that.komentarz);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (idOceny ^ (idOceny >>> 32));
-        result = 31 * result + idStudenta;
-        result = 31 * result + (kodPrzedmiotu != null ? kodPrzedmiotu.hashCode() : 0);
-        result = 31 * result + (int) (rok ^ (rok >>> 32));
-        result = 31 * result + (rodzajSemestru != null ? rodzajSemestru.hashCode() : 0);
-        result = 31 * result + (int) idTypuOceny;
-        result = 31 * result + (int) (wartosc ^ (wartosc >>> 32));
-        result = 31 * result + (dataICzasWystawienia != null ? dataICzasWystawienia.hashCode() : 0);
-        result = 31 * result + (komentarz != null ? komentarz.hashCode() : 0);
-        return result;
+
+        return Objects.hash(idOceny, idStudenta, kodPrzedmiotu, rok, rodzajSemestru, idTypuOceny, wartosc, dataICzasWystawienia, komentarz);
+    }
+
+    @ManyToOne
+    @JoinColumns({@JoinColumn(name = "ID_STUDENTA", referencedColumnName = "ID_STUDENTA", nullable = false), @JoinColumn(name = "KOD_PRZEDMIOTU", referencedColumnName = "KOD_PRZEDMIOTU", nullable = false), @JoinColumn(name = "ROK", referencedColumnName = "ROK", nullable = false), @JoinColumn(name = "RODZAJ_SEMESTRU", referencedColumnName = "RODZAJ_SEMESTRU", nullable = false)})
+    public OcenyKoncoweEntity getOcenyKoncowe() {
+        return ocenyKoncowe;
+    }
+
+    public void setOcenyKoncowe(OcenyKoncoweEntity ocenyKoncowe) {
+        this.ocenyKoncowe = ocenyKoncowe;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TYPU_OCENY", referencedColumnName = "ID_TYPU_OCENY", nullable = false)
+    public TypyOcenEntity getTypyOcenByIdTypuOceny() {
+        return typyOcenByIdTypuOceny;
+    }
+
+    public void setTypyOcenByIdTypuOceny(TypyOcenEntity typyOcenByIdTypuOceny) {
+        this.typyOcenByIdTypuOceny = typyOcenByIdTypuOceny;
     }
 }

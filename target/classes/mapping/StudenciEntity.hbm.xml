@@ -17,5 +17,11 @@
         <property name="imie">
             <column name="IMIE" sql-type="varchar2(20 char)" length="20"/>
         </property>
+        <set name="ocenyKoncowesByIdStudenta" inverse="true">
+            <key>
+                <column name="ID_STUDENTA"/>
+            </key>
+            <one-to-many not-found="ignore" class="mapping.OcenyKoncoweEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

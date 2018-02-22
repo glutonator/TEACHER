@@ -2,6 +2,8 @@ package mapping;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "OCENY_KONCOWE", schema = "BD2A20", catalog = "")
@@ -13,6 +15,9 @@ public class OcenyKoncoweEntity {
     private String rodzajSemestru;
     private long ocenaKoncowa;
     private Time dataICzasAktualizacji;
+    private Collection<OcenyEntity> ocenies;
+    private StudenciEntity studenciByIdStudenta;
+    private RealizacjeEntity realizacje;
 
     @Id
     @Column(name = "ID_STUDENTA", nullable = false, precision = 0)
@@ -78,30 +83,47 @@ public class OcenyKoncoweEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OcenyKoncoweEntity that = (OcenyKoncoweEntity) o;
-
-        if (idStudenta != that.idStudenta) return false;
-        if (rok != that.rok) return false;
-        if (ocenaKoncowa != that.ocenaKoncowa) return false;
-        if (kodPrzedmiotu != null ? !kodPrzedmiotu.equals(that.kodPrzedmiotu) : that.kodPrzedmiotu != null)
-            return false;
-        if (rodzajSemestru != null ? !rodzajSemestru.equals(that.rodzajSemestru) : that.rodzajSemestru != null)
-            return false;
-        if (dataICzasAktualizacji != null ? !dataICzasAktualizacji.equals(that.dataICzasAktualizacji) : that.dataICzasAktualizacji != null)
-            return false;
-
-        return true;
+        return idStudenta == that.idStudenta &&
+                rok == that.rok &&
+                ocenaKoncowa == that.ocenaKoncowa &&
+                Objects.equals(kodPrzedmiotu, that.kodPrzedmiotu) &&
+                Objects.equals(rodzajSemestru, that.rodzajSemestru) &&
+                Objects.equals(dataICzasAktualizacji, that.dataICzasAktualizacji);
     }
 
     @Override
     public int hashCode() {
-        int result = idStudenta;
-        result = 31 * result + (kodPrzedmiotu != null ? kodPrzedmiotu.hashCode() : 0);
-        result = 31 * result + (int) (rok ^ (rok >>> 32));
-        result = 31 * result + (rodzajSemestru != null ? rodzajSemestru.hashCode() : 0);
-        result = 31 * result + (int) (ocenaKoncowa ^ (ocenaKoncowa >>> 32));
-        result = 31 * result + (dataICzasAktualizacji != null ? dataICzasAktualizacji.hashCode() : 0);
-        return result;
+
+        return Objects.hash(idStudenta, kodPrzedmiotu, rok, rodzajSemestru, ocenaKoncowa, dataICzasAktualizacji);
+    }
+
+    @OneToMany(mappedBy = "ocenyKoncowe")
+    public Collection<OcenyEntity> getOcenies() {
+        return ocenies;
+    }
+
+    public void setOcenies(Collection<OcenyEntity> ocenies) {
+        this.ocenies = ocenies;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_STUDENTA", referencedColumnName = "ID_STUDENTA", nullable = false)
+    public StudenciEntity getStudenciByIdStudenta() {
+        return studenciByIdStudenta;
+    }
+
+    public void setStudenciByIdStudenta(StudenciEntity studenciByIdStudenta) {
+        this.studenciByIdStudenta = studenciByIdStudenta;
+    }
+
+    @ManyToOne
+    @JoinColumns({@JoinColumn(name = "KOD_PRZEDMIOTU", referencedColumnName = "KOD_PRZEDMIOTU", nullable = false), @JoinColumn(name = "ROK", referencedColumnName = "ROK", nullable = false), @JoinColumn(name = "RODZAJ_SEMESTRU", referencedColumnName = "RODZAJ_SEMESTRU", nullable = false)})
+    public RealizacjeEntity getRealizacje() {
+        return realizacje;
+    }
+
+    public void setRealizacje(RealizacjeEntity realizacje) {
+        this.realizacje = realizacje;
     }
 }

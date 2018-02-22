@@ -14,5 +14,17 @@
         <property name="opis">
             <column name="OPIS" sql-type="varchar2(200 char)" length="200" not-null="true"/>
         </property>
+        <set name="realizacjesByKodPrzedmiotu" inverse="true">
+            <key>
+                <column name="KOD_PRZEDMIOTU"/>
+            </key>
+            <one-to-many not-found="ignore" class="mapping.RealizacjeEntity"/>
+        </set>
+        <set name="typyOcensByKodPrzedmiotu" inverse="true">
+            <key>
+                <column name="KOD_PRZEDMIOTU"/>
+            </key>
+            <one-to-many not-found="ignore" class="mapping.TypyOcenEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

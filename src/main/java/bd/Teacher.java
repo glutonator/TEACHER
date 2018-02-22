@@ -18,12 +18,13 @@ import org.hibernate.cfg.Configuration;
 public class Teacher {
     private static SessionFactory factory;
 
-    public static void main(String[] args) {
+    private Teacher() {}
+    private static class Holder {
+        private static final Teacher INSTANCE = new Teacher();
+    }
 
-//        new Thread( ()-> TeacherWindow.main(null)).start();
-//        Teacher teacher = new Teacher();
-//        teacher.setup();
-//        teacher.listPrzedmioty();
+    public static Teacher getInstance() {
+        return Holder.INSTANCE;
     }
 
     public void setup () {
@@ -38,7 +39,7 @@ public class Teacher {
 
     public List listPrzedmioty() {
         Transaction tx = null;
-        List subjects_obj = new ArrayList();
+        List<PrzedmiotyEntity> subjects_obj = new ArrayList();
 
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();

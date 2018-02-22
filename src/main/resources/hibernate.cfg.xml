@@ -21,18 +21,20 @@
         </property>
 
         <!-- List of XML mapping files -->
-        <mapping resource="mapping/OcenyEntity.hbm.xml"/>
         <mapping class="mapping.OcenyEntity"/>
-        <mapping resource="mapping/OcenyKoncoweEntity.hbm.xml"/>
+        <mapping resource="mapping/OcenyEntity.hbm.xml"/>
         <mapping class="mapping.OcenyKoncoweEntity"/>
-        <mapping resource="mapping/PrzedmiotyEntity.hbm.xml"/>
+        <mapping resource="mapping/OcenyKoncoweEntity.hbm.xml"/>
         <mapping class="mapping.PrzedmiotyEntity"/>
-        <mapping resource="mapping/RealizacjeEntity.hbm.xml"/>
+        <mapping resource="mapping/PrzedmiotyEntity.hbm.xml"/>
         <mapping class="mapping.RealizacjeEntity"/>
-        <mapping resource="mapping/StudenciEntity.hbm.xml"/>
+        <mapping resource="mapping/RealizacjeEntity.hbm.xml"/>
         <mapping class="mapping.StudenciEntity"/>
-        <mapping resource="mapping/TypyOcenEntity.hbm.xml"/>
+        <mapping resource="mapping/StudenciEntity.hbm.xml"/>
         <mapping class="mapping.TypyOcenEntity"/>
+        <mapping resource="mapping/TypyOcenEntity.hbm.xml"/>
+
+
 
 
     </session-factory>

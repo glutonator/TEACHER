@@ -3,6 +3,7 @@ package mapping;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class RealizacjeEntityPK implements Serializable {
     private String kodPrzedmiotu;
@@ -43,23 +44,15 @@ public class RealizacjeEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         RealizacjeEntityPK that = (RealizacjeEntityPK) o;
-
-        if (rok != that.rok) return false;
-        if (kodPrzedmiotu != null ? !kodPrzedmiotu.equals(that.kodPrzedmiotu) : that.kodPrzedmiotu != null)
-            return false;
-        if (rodzajSemestru != null ? !rodzajSemestru.equals(that.rodzajSemestru) : that.rodzajSemestru != null)
-            return false;
-
-        return true;
+        return rok == that.rok &&
+                Objects.equals(kodPrzedmiotu, that.kodPrzedmiotu) &&
+                Objects.equals(rodzajSemestru, that.rodzajSemestru);
     }
 
     @Override
     public int hashCode() {
-        int result = kodPrzedmiotu != null ? kodPrzedmiotu.hashCode() : 0;
-        result = 31 * result + (int) (rok ^ (rok >>> 32));
-        result = 31 * result + (rodzajSemestru != null ? rodzajSemestru.hashCode() : 0);
-        return result;
+
+        return Objects.hash(kodPrzedmiotu, rok, rodzajSemestru);
     }
 }

@@ -1,6 +1,8 @@
 package mapping;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "STUDENCI", schema = "BD2A20", catalog = "")
@@ -9,6 +11,7 @@ public class StudenciEntity {
     private String nrAlbumu;
     private String nazwisko;
     private String imie;
+    private Collection<OcenyKoncoweEntity> ocenyKoncowesByIdStudenta;
 
     @Id
     @Column(name = "ID_STUDENTA", nullable = false, precision = 0)
@@ -54,23 +57,25 @@ public class StudenciEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         StudenciEntity that = (StudenciEntity) o;
-
-        if (idStudenta != that.idStudenta) return false;
-        if (nrAlbumu != null ? !nrAlbumu.equals(that.nrAlbumu) : that.nrAlbumu != null) return false;
-        if (nazwisko != null ? !nazwisko.equals(that.nazwisko) : that.nazwisko != null) return false;
-        if (imie != null ? !imie.equals(that.imie) : that.imie != null) return false;
-
-        return true;
+        return idStudenta == that.idStudenta &&
+                Objects.equals(nrAlbumu, that.nrAlbumu) &&
+                Objects.equals(nazwisko, that.nazwisko) &&
+                Objects.equals(imie, that.imie);
     }
 
     @Override
     public int hashCode() {
-        int result = idStudenta;
-        result = 31 * result + (nrAlbumu != null ? nrAlbumu.hashCode() : 0);
-        result = 31 * result + (nazwisko != null ? nazwisko.hashCode() : 0);
-        result = 31 * result + (imie != null ? imie.hashCode() : 0);
-        return result;
+
+        return Objects.hash(idStudenta, nrAlbumu, nazwisko, imie);
+    }
+
+    @OneToMany(mappedBy = "studenciByIdStudenta")
+    public Collection<OcenyKoncoweEntity> getOcenyKoncowesByIdStudenta() {
+        return ocenyKoncowesByIdStudenta;
+    }
+
+    public void setOcenyKoncowesByIdStudenta(Collection<OcenyKoncoweEntity> ocenyKoncowesByIdStudenta) {
+        this.ocenyKoncowesByIdStudenta = ocenyKoncowesByIdStudenta;
     }
 }

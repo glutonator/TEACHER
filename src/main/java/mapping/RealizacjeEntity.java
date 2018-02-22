@@ -1,6 +1,8 @@
 package mapping;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "REALIZACJE", schema = "BD2A20", catalog = "")
@@ -9,6 +11,8 @@ public class RealizacjeEntity {
     private String kodPrzedmiotu;
     private long rok;
     private String rodzajSemestru;
+    private Collection<OcenyKoncoweEntity> ocenyKoncowes;
+    private PrzedmiotyEntity przedmiotyByKodPrzedmiotu;
 
     @Id
     @Column(name = "KOD_PRZEDMIOTU", nullable = false, length = 3)
@@ -44,23 +48,34 @@ public class RealizacjeEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         RealizacjeEntity that = (RealizacjeEntity) o;
-
-        if (rok != that.rok) return false;
-        if (kodPrzedmiotu != null ? !kodPrzedmiotu.equals(that.kodPrzedmiotu) : that.kodPrzedmiotu != null)
-            return false;
-        if (rodzajSemestru != null ? !rodzajSemestru.equals(that.rodzajSemestru) : that.rodzajSemestru != null)
-            return false;
-
-        return true;
+        return rok == that.rok &&
+                Objects.equals(kodPrzedmiotu, that.kodPrzedmiotu) &&
+                Objects.equals(rodzajSemestru, that.rodzajSemestru);
     }
 
     @Override
     public int hashCode() {
-        int result = kodPrzedmiotu != null ? kodPrzedmiotu.hashCode() : 0;
-        result = 31 * result + (int) (rok ^ (rok >>> 32));
-        result = 31 * result + (rodzajSemestru != null ? rodzajSemestru.hashCode() : 0);
-        return result;
+
+        return Objects.hash(kodPrzedmiotu, rok, rodzajSemestru);
+    }
+
+    @OneToMany(mappedBy = "realizacje")
+    public Collection<OcenyKoncoweEntity> getOcenyKoncowes() {
+        return ocenyKoncowes;
+    }
+
+    public void setOcenyKoncowes(Collection<OcenyKoncoweEntity> ocenyKoncowes) {
+        this.ocenyKoncowes = ocenyKoncowes;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "KOD_PRZEDMIOTU", referencedColumnName = "KOD_PRZEDMIOTU", nullable = false)
+    public PrzedmiotyEntity getPrzedmiotyByKodPrzedmiotu() {
+        return przedmiotyByKodPrzedmiotu;
+    }
+
+    public void setPrzedmiotyByKodPrzedmiotu(PrzedmiotyEntity przedmiotyByKodPrzedmiotu) {
+        this.przedmiotyByKodPrzedmiotu = przedmiotyByKodPrzedmiotu;
     }
 }

@@ -39,7 +39,7 @@ public class Teacher {
 
     public List listPrzedmioty() {
         Transaction tx = null;
-        List<PrzedmiotyEntity> subjects_obj = new ArrayList();
+        List<PrzedmiotyEntity> subjects_obj = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();

@@ -25,10 +25,10 @@
         <property name="dataICzasAktualizacji">
             <column name="DATA_I_CZAS_AKTUALIZACJI" sql-type="date"/>
         </property>
-        <many-to-one name="studenciByIdStudenta" class="mapping.StudenciEntity">
-            <column name="ID_STUDENTA"/>
+        <many-to-one name="studenciByIdStudenta" class="mapping.StudenciEntity" insert="false" update="false">
+            <column name="ID_STUDENTA" />
         </many-to-one>
-        <many-to-one name="realizacje" class="mapping.RealizacjeEntity">
+        <many-to-one name="realizacje" class="mapping.RealizacjeEntity" insert="false" update="false">
             <column name="KOD_PRZEDMIOTU"/>
             <column name="ROK"/>
             <column name="RODZAJ_SEMESTRU"/>

@@ -16,7 +16,7 @@
                 <column name="RODZAJ_SEMESTRU" sql-type="char(1 char)" length="1"/>
             </key-property>
         </composite-id>
-        <many-to-one name="przedmiotyByKodPrzedmiotu" class="mapping.PrzedmiotyEntity">
+        <many-to-one name="przedmiotyByKodPrzedmiotu" class="mapping.PrzedmiotyEntity" insert="false" update="false">
             <column name="KOD_PRZEDMIOTU"/>
         </many-to-one>
         <set name="ocenyKoncowes" inverse="true">

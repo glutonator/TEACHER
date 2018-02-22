@@ -17,7 +17,7 @@
         <property name="waga">
             <column name="WAGA" sql-type="number(2)" precision="2"/>
         </property>
-        <many-to-one name="przedmiotyByKodPrzedmiotu" class="mapping.PrzedmiotyEntity">
+        <many-to-one name="przedmiotyByKodPrzedmiotu" class="mapping.PrzedmiotyEntity" insert="false" update="false">
             <column name="KOD_PRZEDMIOTU"/>
         </many-to-one>
         <set name="oceniesByIdTypuOceny" inverse="true">

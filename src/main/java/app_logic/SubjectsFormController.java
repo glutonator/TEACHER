@@ -10,8 +10,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import mapping.PrzedmiotyEntity;
 import javafx.util.Callback;
 import mapping.RealizacjeEntity;
@@ -45,6 +53,19 @@ public class SubjectsFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addToComboBox();
+
+        //setup doubleclick on row in tableview with subjects
+        tableViewSubjects.setRowFactory(tv -> {
+            TableRow<RealizacjeEntity> row = new TableRow<RealizacjeEntity>();
+            row.setOnMouseClicked((MouseEvent event) -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    RealizacjeEntity rowData = row.getItem();
+                    System.out.println("Double click on: "+rowData.getRok());
+                }
+            });
+            return row ;
+        });
+
     }
 
     public void addToComboBox() {
@@ -97,6 +118,35 @@ public class SubjectsFormController implements Initializable {
         tableViewSubjects.setItems(obList2);
         tableViewSubjects_year.setCellValueFactory(cellData  -> new ReadOnlyLongWrapper(cellData.getValue().getRok()));
         tableViewSubjects_term.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getRodzajSemestru()));
+
+    }
+
+    public void onClickButtonStudentsListWidnow () {
+//        StackPane secondaryLayout = new StackPane();
+//        Scene secondScene = new Scene(secondaryLayout, 230, 100);
+//        Stage newWindow = new Stage();
+//        newWindow.setTitle("Secend");
+//        newWindow.setScene(secondScene);
+//        // Specifies the modality for new window.
+//        newWindow.initModality(Modality.WINDOW_MODAL);
+//        // Specifies the owner Window (parent) for new window
+//        newWindow.initOwner(primaryStage);
+        System.out.println("f sie wywwaola");
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/studentsList.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("ABC");
+            stage.setScene(new Scene(root1));
+            stage.show();
+            //stage.initModality(Modality.WINDOW_MODAL);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 }

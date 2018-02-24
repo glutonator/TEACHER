@@ -43,12 +43,14 @@ public class Teacher {
 
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
-            List subjects = session.createQuery("FROM PrzedmiotyEntity").list();
+            //List subjects = session.createQuery("SELECT  FROM PrzedmiotyEntity INNER JOIN FETCH PrzedmiotyEntity.RealizacjeEntity").list();
+            List subjects = session.createQuery("SELECT DISTINCT p FROM PrzedmiotyEntity p JOIN FETCH p.realizacjesByKodPrzedmiotu ").list();
 
             subjects.forEach((Object sub_tmp) -> {
                 PrzedmiotyEntity subject = (PrzedmiotyEntity) sub_tmp;
                 subjects_obj.add(subject);
                 System.out.println(subject.getNazwa());
+                //System.out.println(subject.getRealizacjesByKodPrzedmiotu());
                 //System.out.println(((PrzedmiotyEntity) sub_tmp).getNazwa());
             });
 //            for (Object subject_tmp : subjects) {

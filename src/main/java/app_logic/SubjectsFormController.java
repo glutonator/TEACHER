@@ -123,7 +123,7 @@ public class SubjectsFormController implements Initializable {
     }
 
     public void onClickButtonStudentsListWidnow () {
-        Teacher.getInstance().listOcenyKoncowe();
+        //Teacher.getInstance().listOcenyKoncowe("MAT",2017,"Z");
 
     }
     public void onDoubleClickStudentsListWidnow (RealizacjeEntity realizacjeEntity) {
@@ -140,7 +140,7 @@ public class SubjectsFormController implements Initializable {
             stage.show();
             StudentsListController controller = (StudentsListController) fxmlLoader.getController();
             controller.setAllLabels(realizacjeEntity);
-
+            controller.setTableViewFinalDegree(Teacher.getInstance().listOcenyKoncowe(realizacjeEntity.getKodPrzedmiotu(),realizacjeEntity.getRok(),realizacjeEntity.getRodzajSemestru()));
         }
         catch (Exception e) {
             e.printStackTrace();

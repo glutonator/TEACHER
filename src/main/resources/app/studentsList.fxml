@@ -14,17 +14,17 @@
             <Label fx:id="label1" text="Label" />
             <Label fx:id="label2" text="Label" />
             <Label fx:id="label3" text="Label" />
-            <Button fx:id="button1" mnemonicParsing="false" onAction="#setLabel1" text="Button" />
+            <Button fx:id="button1" mnemonicParsing="false" text="Button" />
          </children>
       </VBox>
    </top>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableViewFinalDegree" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="75.0" text="Nr albumu" />
-          <TableColumn prefWidth="75.0" text="Nazwisko" />
-            <TableColumn prefWidth="75.0" text="Imię" />
-            <TableColumn prefWidth="104.0" text="Ocena Końcowa" />
+          <TableColumn fx:id="tableViewFinalDegree_nr_index" prefWidth="75.0" text="Nr albumu" />
+          <TableColumn fx:id="tableViewFinalDegree_surname" prefWidth="75.0" text="Nazwisko" />
+            <TableColumn fx:id="tableViewFinalDegree_name" prefWidth="75.0" text="Imię" />
+            <TableColumn fx:id="tableViewFinalDegree_fdegree" prefWidth="104.0" text="Ocena Końcowa" />
         </columns>
       </TableView>
    </center>

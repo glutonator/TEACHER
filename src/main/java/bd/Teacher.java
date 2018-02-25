@@ -30,9 +30,9 @@ public class Teacher {
         System.out.println("sdaasdasd");
     }
 
-    public List listPrzedmioty() {
+    public ArrayList listPrzedmioty() {
         Transaction tx = null;
-        List<PrzedmiotyEntity> subjects_obj = new ArrayList<>();
+        ArrayList<PrzedmiotyEntity> subjects_obj = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
@@ -59,24 +59,30 @@ public class Teacher {
         return subjects_obj;
     }
 
-    public void listOcenyKoncowe() {
+    public ArrayList listOcenyKoncowe(String subject, long year, String term) {
         Transaction tx = null;
-        List<OcenyKoncoweEntity> degree_final_obj = new ArrayList<>();
+        ArrayList<OcenyKoncoweEntity> degree_final_obj = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
 
-            Query query =session.createQuery("FROM OcenyKoncoweEntity OCK WHERE OCK.kodPrzedmiotu = :subject");
-            query.setParameter("subject", "MAT");
+            Query query =session.createQuery("FROM OcenyKoncoweEntity OCK JOIN FETCH OCK.studenciByIdStudenta WHERE OCK.kodPrzedmiotu = :subject AND OCK.rok = :year AND OCK.rodzajSemestru = :term");
+//            query.setParameter("subject", "MAT");
+//            query.setParameter("year",  (long) 2017);;
+//            query.setParameter("term", "Z");
+            query.setParameter("subject", subject);
+            query.setParameter("year",  year);;
+            query.setParameter("term", term);
             List degree_final_list=query.list();
             //List degree_final_list = session.createQuery("FROM OcenyKoncoweEntity OCK WHERE OCK.kodPrzedmiotu = 'MAT'").list();
-
             degree_final_list.forEach((Object sub_tmp) -> {
                 OcenyKoncoweEntity degree_final = (OcenyKoncoweEntity) sub_tmp;
                 degree_final_obj.add(degree_final);
                 System.out.print(degree_final.getIdStudenta());
                 System.out.print(degree_final.getKodPrzedmiotu());
                 System.out.print(degree_final.getOcenaKoncowa());
+                System.out.println();
+                System.out.print(degree_final.getStudenciByIdStudenta().getNrAlbumu());
                 System.out.println();
 
             });
@@ -85,6 +91,7 @@ public class Teacher {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        return degree_final_obj;
     }
 
 }

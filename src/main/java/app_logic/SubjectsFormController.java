@@ -122,26 +122,17 @@ public class SubjectsFormController implements Initializable {
     }
 
     public void onClickButtonStudentsListWidnow () {
-//        StackPane secondaryLayout = new StackPane();
-//        Scene secondScene = new Scene(secondaryLayout, 230, 100);
-//        Stage newWindow = new Stage();
-//        newWindow.setTitle("Secend");
-//        newWindow.setScene(secondScene);
-//        // Specifies the modality for new window.
-//        newWindow.initModality(Modality.WINDOW_MODAL);
-//        // Specifies the owner Window (parent) for new window
-//        newWindow.initOwner(primaryStage);
-        System.out.println("f sie wywwaola");
+
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/studentsList.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("ABC");
+            //stage.initModality(Modality.WINDOW_MODAL);
+            //stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Lista studentów");
             stage.setScene(new Scene(root1));
             stage.show();
-            //stage.initModality(Modality.WINDOW_MODAL);
         }
         catch (Exception e) {
             e.printStackTrace();

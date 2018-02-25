@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_logic.StudentsListController">
-   <children>
-      <Label layoutX="188.0" layoutY="140.0" text="Label" />
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_logic.StudentsListController">
+   <top>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="label1" text="Label" />
+            <Label fx:id="label2" text="Label" />
+            <Label fx:id="label3" text="Label" />
+            <Button fx:id="button1" mnemonicParsing="false" onAction="#setLabel1" text="Button" />
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Nr albumu" />
+          <TableColumn prefWidth="75.0" text="Nazwisko" />
+            <TableColumn prefWidth="75.0" text="Imię" />
+            <TableColumn prefWidth="104.0" text="Ocena Końcowa" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>

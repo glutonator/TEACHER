@@ -1,18 +1,11 @@
 package bd;
 
-import app_logic.TeacherWindow;
 import mapping.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 //import org.hibernate.*;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
 public class Teacher {
@@ -66,6 +59,33 @@ public class Teacher {
         return subjects_obj;
     }
 
+    public void listOcenyKoncowe() {
+        Transaction tx = null;
+        List<OcenyKoncoweEntity> degree_final_obj = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            Query query =session.createQuery("FROM OcenyKoncoweEntity OCK WHERE OCK.kodPrzedmiotu = :subject");
+            query.setParameter("subject", "MAT");
+            List degree_final_list=query.list();
+            //List degree_final_list = session.createQuery("FROM OcenyKoncoweEntity OCK WHERE OCK.kodPrzedmiotu = 'MAT'").list();
+
+            degree_final_list.forEach((Object sub_tmp) -> {
+                OcenyKoncoweEntity degree_final = (OcenyKoncoweEntity) sub_tmp;
+                degree_final_obj.add(degree_final);
+                System.out.print(degree_final.getIdStudenta());
+                System.out.print(degree_final.getKodPrzedmiotu());
+                System.out.print(degree_final.getOcenaKoncowa());
+                System.out.println();
+
+            });
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+    }
 
 }
 

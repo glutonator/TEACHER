@@ -61,6 +61,7 @@ public class SubjectsFormController implements Initializable {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     RealizacjeEntity rowData = row.getItem();
                     System.out.println("Double click on: "+rowData.getRok());
+                    onDoubleClickStudentsListWidnow(rowData);
                 }
             });
             return row ;
@@ -122,6 +123,10 @@ public class SubjectsFormController implements Initializable {
     }
 
     public void onClickButtonStudentsListWidnow () {
+        Teacher.getInstance().listOcenyKoncowe();
+
+    }
+    public void onDoubleClickStudentsListWidnow (RealizacjeEntity realizacjeEntity) {
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/studentsList.fxml"));
@@ -133,11 +138,13 @@ public class SubjectsFormController implements Initializable {
             stage.setTitle("Lista studentów");
             stage.setScene(new Scene(root1));
             stage.show();
+            StudentsListController controller = (StudentsListController) fxmlLoader.getController();
+            controller.setAllLabels(realizacjeEntity);
+
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
+
 }

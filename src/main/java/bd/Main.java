@@ -9,7 +9,6 @@ public class Main {
 
     public static  void main (String[] args) {
         Teacher.getInstance().setup();
-
         new Thread( ()-> TeacherWindow.main(null)).start();
         //teacher = new Teacher();
         //List subjects_list =teacher.listPrzedmioty();

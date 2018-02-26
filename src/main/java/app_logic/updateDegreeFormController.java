@@ -1,5 +1,6 @@
 package app_logic;
 
+import bd.Teacher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -43,6 +44,12 @@ public class updateDegreeFormController  implements Initializable {
     @FXML
     private Button button_cancel;
 
+    private OcenyEntity ocenyEntity_tmp;
+
+    public void setOcenyEntity_tmp(OcenyEntity ocenyEntity_tmp) {
+        this.ocenyEntity_tmp = ocenyEntity_tmp;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -58,7 +65,7 @@ public class updateDegreeFormController  implements Initializable {
     }
 
     public void onClickOk () {
-
+       Teacher.getInstance().updateDegree(ocenyEntity_tmp.getIdOceny() ,"oooo");
     }
     public void onClickCancel () {
 

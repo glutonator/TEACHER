@@ -114,6 +114,21 @@ public class Teacher {
         return degree_final_obj;
     }
 
+    public void updateDegree(long ocenyEntityId,String comment ) {
+
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+            OcenyEntity ocenyEntity =(OcenyEntity) session.get(OcenyEntity.class,ocenyEntityId);
+            ocenyEntity.setKomentarz(comment);
+            session.update(ocenyEntity);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+    }
 
 }
 

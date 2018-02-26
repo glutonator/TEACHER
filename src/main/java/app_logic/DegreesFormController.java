@@ -101,6 +101,7 @@ public class DegreesFormController implements Initializable {
             stage.show();
             updateDegreeFormController controller = (updateDegreeFormController) fxmlLoader.getController();
             controller.setAllLabels(ocenyEntity);
+            controller.setOcenyEntity_tmp(ocenyEntity);
             //controller.setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
         }
         catch (Exception e) {

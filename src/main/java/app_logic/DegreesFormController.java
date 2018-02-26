@@ -1,6 +1,7 @@
 package app_logic;
 
 import bd.Teacher;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -84,7 +85,7 @@ public class DegreesFormController implements Initializable {
         tableViewDegrees.setItems(obList2);
         tableViewDegrees_1.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getTypyOcenByIdTypuOceny().getTemat()));
         tableViewDegrees_2.setCellValueFactory(cellData  -> new ReadOnlyLongWrapper(cellData.getValue().getTypyOcenByIdTypuOceny().getWaga()));
-        tableViewDegrees_3.setCellValueFactory(cellData  -> new ReadOnlyLongWrapper(cellData.getValue().getWartosc()));
+        tableViewDegrees_3.setCellValueFactory(cellData  -> new ReadOnlyDoubleWrapper(cellData.getValue().getWartosc()));
         tableViewDegrees_4.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getKomentarz()));
 
     }

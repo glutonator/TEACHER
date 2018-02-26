@@ -1,6 +1,7 @@
 package app_logic;
 
 import bd.Teacher;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -99,7 +100,7 @@ public class StudentsListController implements Initializable {
         tableViewFinalDegree_nr_index.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getStudenciByIdStudenta().getNrAlbumu()));
         tableViewFinalDegree_surname.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getStudenciByIdStudenta().getNazwisko()));
         tableViewFinalDegree_name.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getStudenciByIdStudenta().getImie()));
-        tableViewFinalDegree_fdegree.setCellValueFactory(cellData  -> new ReadOnlyLongWrapper(cellData.getValue().getOcenaKoncowa()));
+        tableViewFinalDegree_fdegree.setCellValueFactory(cellData  -> new ReadOnlyDoubleWrapper(cellData.getValue().getOcenaKoncowa()));
 
     }
 

@@ -13,7 +13,7 @@ public class OcenyKoncoweEntity {
     private String kodPrzedmiotu;
     private long rok;
     private String rodzajSemestru;
-    private long ocenaKoncowa;
+    private double ocenaKoncowa;
     private Time dataICzasAktualizacji;
     private Collection<OcenyEntity> ocenies;
     private StudenciEntity studenciByIdStudenta;
@@ -61,11 +61,11 @@ public class OcenyKoncoweEntity {
 
     @Basic
     @Column(name = "OCENA_KONCOWA", nullable = false, precision = 2)
-    public long getOcenaKoncowa() {
+    public double getOcenaKoncowa() {
         return ocenaKoncowa;
     }
 
-    public void setOcenaKoncowa(long ocenaKoncowa) {
+    public void setOcenaKoncowa(double ocenaKoncowa) {
         this.ocenaKoncowa = ocenaKoncowa;
     }
 

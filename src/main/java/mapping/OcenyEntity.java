@@ -13,7 +13,7 @@ public class OcenyEntity {
     private long rok;
     private String rodzajSemestru;
     private short idTypuOceny;
-    private long wartosc;
+    private double wartosc;
     private Time dataICzasWystawienia;
     private String komentarz;
     private OcenyKoncoweEntity ocenyKoncowe;
@@ -81,11 +81,11 @@ public class OcenyEntity {
 
     @Basic
     @Column(name = "WARTOSC", nullable = false, precision = 1)
-    public long getWartosc() {
+    public double getWartosc() {
         return wartosc;
     }
 
-    public void setWartosc(long wartosc) {
+    public void setWartosc(double wartosc) {
         this.wartosc = wartosc;
     }
 

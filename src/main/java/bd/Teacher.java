@@ -27,7 +27,7 @@ public class Teacher {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-        System.out.println("sdaasdasd");
+        System.out.println("setup completed");
     }
 
     public ArrayList listPrzedmioty() {
@@ -42,9 +42,6 @@ public class Teacher {
             subjects.forEach((Object sub_tmp) -> {
                 PrzedmiotyEntity subject = (PrzedmiotyEntity) sub_tmp;
                 subjects_obj.add(subject);
-                System.out.println(subject.getNazwa());
-                //System.out.println(subject.getRealizacjesByKodPrzedmiotu());
-                //System.out.println(((PrzedmiotyEntity) sub_tmp).getNazwa());
             });
 //            for (Object subject_tmp : subjects) {
 //                PrzedmiotyEntity subject = (PrzedmiotyEntity) subject_tmp;
@@ -67,9 +64,6 @@ public class Teacher {
             tx = session.beginTransaction();
 
             Query query =session.createQuery("FROM OcenyKoncoweEntity OCK JOIN FETCH OCK.studenciByIdStudenta WHERE OCK.kodPrzedmiotu = :subject AND OCK.rok = :year AND OCK.rodzajSemestru = :term");
-//            query.setParameter("subject", "MAT");
-//            query.setParameter("year",  (long) 2017);;
-//            query.setParameter("term", "Z");
             query.setParameter("subject", subject);
             query.setParameter("year",  year);;
             query.setParameter("term", term);
@@ -78,12 +72,12 @@ public class Teacher {
             degree_final_list.forEach((Object sub_tmp) -> {
                 OcenyKoncoweEntity degree_final = (OcenyKoncoweEntity) sub_tmp;
                 degree_final_obj.add(degree_final);
-                System.out.print(degree_final.getIdStudenta());
-                System.out.print(degree_final.getKodPrzedmiotu());
-                System.out.print(degree_final.getOcenaKoncowa());
-                System.out.println();
-                System.out.print(degree_final.getStudenciByIdStudenta().getNrAlbumu());
-                System.out.println();
+//                System.out.print(degree_final.getIdStudenta());
+//                System.out.print(degree_final.getKodPrzedmiotu());
+//                System.out.print(degree_final.getOcenaKoncowa());
+//                System.out.println();
+//                System.out.print(degree_final.getStudenciByIdStudenta().getNrAlbumu());
+//                System.out.println();
 
             });
             tx.commit();
@@ -93,6 +87,40 @@ public class Teacher {
         }
         return degree_final_obj;
     }
+
+    public ArrayList listOceny(String subject, long year, String term, int idStud ) {
+        Transaction tx = null;
+        ArrayList<OcenyEntity> degree_final_obj = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            Query query =session.createQuery("FROM OcenyEntity OC JOIN FETCH OC.typyOcenByIdTypuOceny WHERE OC.kodPrzedmiotu = :subject AND OC.rok = :year AND OC.rodzajSemestru = :term AND OC.idStudenta= :idStud");
+            query.setParameter("subject", subject);
+            query.setParameter("year",  year);;
+            query.setParameter("term", term);
+            query.setParameter("idStud", idStud);
+
+            List degree_final_list=query.list();
+            degree_final_list.forEach((Object sub_tmp) -> {
+                OcenyEntity degree_final = (OcenyEntity) sub_tmp;
+                degree_final_obj.add(degree_final);
+                System.out.print(degree_final.getIdStudenta());
+                System.out.print(degree_final.getKodPrzedmiotu());
+                System.out.print(degree_final.getTypyOcenByIdTypuOceny().getIdTypuOceny());
+//                System.out.println();
+//                System.out.print(degree_final.getStudenciByIdStudenta().getNrAlbumu());
+//                System.out.println();
+
+            });
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        return degree_final_obj;
+    }
+
 
 }
 

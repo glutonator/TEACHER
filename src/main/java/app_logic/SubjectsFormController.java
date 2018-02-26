@@ -60,7 +60,6 @@ public class SubjectsFormController implements Initializable {
             row.setOnMouseClicked((MouseEvent event) -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     RealizacjeEntity rowData = row.getItem();
-                    System.out.println("Double click on: "+rowData.getRok());
                     onDoubleClickStudentsListWidnow(rowData);
                 }
             });
@@ -71,7 +70,6 @@ public class SubjectsFormController implements Initializable {
 
     public void addToComboBox() {
         List<PrzedmiotyEntity> subject_list = Teacher.getInstance().listPrzedmioty();
-        System.out.println("ttttest");
 
         ObservableList obList = FXCollections.observableList(subject_list);
 
@@ -98,7 +96,6 @@ public class SubjectsFormController implements Initializable {
         PrzedmiotyEntity value = (PrzedmiotyEntity) comboBoxSubjects.getValue();
         comboBoxSubjects.setPromptText(value.getKodPrzedmiotu());
         comboBoxSubjects.setAccessibleText(value.getKodPrzedmiotu());
-        System.out.println(value.getKodPrzedmiotu());
         setLabel(label1,value.getKodPrzedmiotu());
         setLabel(label2,value.getNazwa());
         setLabel(label3,value.getOpis());
@@ -111,9 +108,9 @@ public class SubjectsFormController implements Initializable {
 
     public void setTableViewSubjects(PrzedmiotyEntity subject) {
         Collection<RealizacjeEntity> realizacjesByKodPrzedmiotu = subject.getRealizacjesByKodPrzedmiotu();
-        for ( RealizacjeEntity yyy: realizacjesByKodPrzedmiotu) {
-            System.out.println(yyy);
-        }
+//        for ( RealizacjeEntity yyy: realizacjesByKodPrzedmiotu) {
+//            System.out.println(yyy);
+//        }
         ObservableList obList2 = FXCollections.observableList(new ArrayList<RealizacjeEntity>(realizacjesByKodPrzedmiotu));
 
         tableViewSubjects.setItems(obList2);

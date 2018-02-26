@@ -6,6 +6,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -13,7 +14,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mapping.OcenyKoncoweEntity;
 import mapping.PrzedmiotyEntity;
 import mapping.RealizacjeEntity;
@@ -56,6 +63,17 @@ public class StudentsListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //setup doubleclick on row in tableview
+        tableViewFinalDegree.setRowFactory(tv -> {
+            TableRow<OcenyKoncoweEntity> row = new TableRow<OcenyKoncoweEntity>();
+            row.setOnMouseClicked((MouseEvent event) -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    OcenyKoncoweEntity rowData = row.getItem();
+                    onDoubleClickWindow(rowData);
+                }
+            });
+            return row ;
+        });
     }
 
 
@@ -72,9 +90,9 @@ public class StudentsListController implements Initializable {
     public void onClickButton() {
     }
     public void setTableViewFinalDegree(ArrayList<OcenyKoncoweEntity> final_degree) {
-        for ( OcenyKoncoweEntity yyy: final_degree) {
-            System.out.println(yyy);
-        }
+//        for ( OcenyKoncoweEntity yyy: final_degree) {
+//            System.out.println(yyy);
+//        }
         ObservableList obList2 = FXCollections.observableList(final_degree);
 
         tableViewFinalDegree.setItems(obList2);
@@ -83,6 +101,25 @@ public class StudentsListController implements Initializable {
         tableViewFinalDegree_name.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getStudenciByIdStudenta().getImie()));
         tableViewFinalDegree_fdegree.setCellValueFactory(cellData  -> new ReadOnlyLongWrapper(cellData.getValue().getOcenaKoncowa()));
 
+    }
+
+    public void onDoubleClickWindow (OcenyKoncoweEntity ocenyKoncoweEntity) {
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/degreesForm.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Lista studentów");
+            stage.setScene(new Scene(root1));
+            stage.show();
+            DegreesFormController controller = (DegreesFormController) fxmlLoader.getController();
+            controller.setAllLabels(ocenyKoncoweEntity);
+            controller.setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

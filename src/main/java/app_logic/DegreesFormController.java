@@ -1,15 +1,19 @@
 package app_logic;
 
+import bd.Teacher;
 import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mapping.OcenyEntity;
 import mapping.OcenyKoncoweEntity;
 import mapping.RealizacjeEntity;
@@ -33,7 +37,7 @@ public class DegreesFormController implements Initializable {
     private Button button1;
 
     @FXML
-    private TableView<?> tableViewDegrees;
+    private TableView tableViewDegrees;
 
     @FXML
     private TableColumn<OcenyEntity, String> tableViewDegrees_1;
@@ -50,7 +54,17 @@ public class DegreesFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //setup doubleclick on row in tableview
+        tableViewDegrees.setRowFactory(tv -> {
+            TableRow<OcenyEntity> row = new TableRow<OcenyEntity>();
+            row.setOnMouseClicked((MouseEvent event) -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    OcenyEntity rowData = row.getItem();
+                    onDoubleClickWindow(rowData);
+                }
+            });
+            return row ;
+        });
     }
 
     public void setLabel(Label label, String text) {
@@ -73,5 +87,23 @@ public class DegreesFormController implements Initializable {
         tableViewDegrees_3.setCellValueFactory(cellData  -> new ReadOnlyLongWrapper(cellData.getValue().getWartosc()));
         tableViewDegrees_4.setCellValueFactory(cellData  -> new ReadOnlyStringWrapper(cellData.getValue().getKomentarz()));
 
+    }
+    public void onDoubleClickWindow (OcenyEntity ocenyEntity) {
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/updateDegreeForm.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Zmiana oceny");
+            stage.setScene(new Scene(root1));
+            stage.show();
+            updateDegreeFormController controller = (updateDegreeFormController) fxmlLoader.getController();
+            controller.setAllLabels(ocenyEntity);
+            //controller.setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

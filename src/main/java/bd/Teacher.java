@@ -105,13 +105,6 @@ public class Teacher {
             degree_final_list.forEach((Object sub_tmp) -> {
                 OcenyEntity degree_final = (OcenyEntity) sub_tmp;
                 degree_final_obj.add(degree_final);
-                System.out.print(degree_final.getIdStudenta());
-                System.out.print(degree_final.getKodPrzedmiotu());
-                System.out.print(degree_final.getTypyOcenByIdTypuOceny().getIdTypuOceny());
-//                System.out.println();
-//                System.out.print(degree_final.getStudenciByIdStudenta().getNrAlbumu());
-//                System.out.println();
-
             });
             tx.commit();
         } catch (HibernateException e) {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_logic.updateDegreeFormController">
+   <center>
+      <VBox prefHeight="333.0" prefWidth="399.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="label" text="Temat" />
+            <Label fx:id="label_temat" text="Label" />
+            <Label fx:id="label1" layoutX="10.0" layoutY="10.0" text="Waga" />
+            <Label fx:id="label_waga" text="Label" />
+            <Label fx:id="label2" layoutX="10.0" layoutY="10.0" text="Ocena" />
+            <TextField fx:id="text_field2" layoutX="10.0" layoutY="27.0" />
+            <Label fx:id="label3" layoutX="10.0" layoutY="10.0" text="Komentarz" />
+            <TextField fx:id="text_field3" layoutX="10.0" layoutY="27.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+               <children>
+                  <Button fx:id="button_ok" maxHeight="25.0" maxWidth="55.0" minHeight="25.0" minWidth="55.0" mnemonicParsing="false" onAction="#onClickOk" prefHeight="25.0" prefWidth="55.0" text="OK" />
+                  <Button fx:id="button_cancel" layoutX="214.0" layoutY="48.0" maxHeight="25.0" maxWidth="55.0" minHeight="25.0" minWidth="55.0" mnemonicParsing="false" onAction="#onClickCancel" prefHeight="25.0" prefWidth="55.0" text="Cancel" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

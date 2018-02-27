@@ -53,6 +53,26 @@ public class DegreesFormController implements Initializable {
     private TableColumn<OcenyEntity, String> tableViewDegrees_4;
 
 
+    private OcenyKoncoweEntity ocenyEntity_tmp;
+
+    private StudentsListController parent_controller;
+
+    public void setParent_controller(StudentsListController parent_controller) {
+        this.parent_controller = parent_controller;
+    }
+    private DegreesFormController my_controller;
+
+    public void setMy_controller(DegreesFormController my_controller) {
+        this.my_controller = my_controller;
+    }
+
+    public void setOcenyEntity_tmp(OcenyKoncoweEntity ocenyEntity_tmp) {
+        this.ocenyEntity_tmp = ocenyEntity_tmp;
+    }
+    //    public void setOcenyEntity_tmp(ArrayList<OcenyEntity> ocenyEntity_tmp) {
+//        this.ocenyEntity_tmp = ocenyEntity_tmp;
+//    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //setup doubleclick on row in tableview
@@ -79,7 +99,7 @@ public class DegreesFormController implements Initializable {
     }
 
     public void setTableViewDegree(ArrayList<OcenyEntity> final_degree) {
-
+        //setOcenyEntity_tmp(final_degree);
         ObservableList obList2 = FXCollections.observableList(final_degree);
 
         tableViewDegrees.setItems(obList2);
@@ -90,7 +110,6 @@ public class DegreesFormController implements Initializable {
 
     }
     public void onDoubleClickWindow (OcenyEntity ocenyEntity) {
-
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/updateDegreeForm.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -100,6 +119,8 @@ public class DegreesFormController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
             updateDegreeFormController controller = (updateDegreeFormController) fxmlLoader.getController();
+            controller.setParent_controller(my_controller);
+            controller.setMy_controller(controller);
             controller.setAllLabels(ocenyEntity);
             controller.setOcenyEntity_tmp(ocenyEntity);
             //controller.setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
@@ -107,5 +128,15 @@ public class DegreesFormController implements Initializable {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void onClickButton () {
+        updateTableView();
+    }
+    public void updateTableView() {
+        System.out.println("cos sie dzieje");
+        setTableViewDegree(Teacher.getInstance().listOceny(ocenyEntity_tmp.getKodPrzedmiotu(),ocenyEntity_tmp.getRok(),ocenyEntity_tmp.getRodzajSemestru(),ocenyEntity_tmp.getIdStudenta()));
+        //ObservableList<OcenyEntity> data = FXCollections.observableList(ocenyEntity_tmp);
+        //tableViewDegrees.setItems(data);
     }
 }

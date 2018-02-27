@@ -58,6 +58,17 @@ public class StudentsListController implements Initializable {
     private TableColumn<OcenyKoncoweEntity, Number> tableViewFinalDegree_fdegree;
 
 
+    private SubjectsFormController parent_controller;
+
+    public void setParent_controller(SubjectsFormController parent_controller) {
+        this.parent_controller = parent_controller;
+    }
+
+    private StudentsListController my_controller;
+
+    public void setMy_controller(StudentsListController my_controller) {
+        this.my_controller = my_controller;
+    }
 
     public StudentsListController() {
     }
@@ -111,11 +122,14 @@ public class StudentsListController implements Initializable {
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Lista studentów");
+            stage.setTitle("Llsta ocen");
             stage.setScene(new Scene(root1));
             stage.show();
             DegreesFormController controller = (DegreesFormController) fxmlLoader.getController();
+            controller.setParent_controller(my_controller);
+            controller.setMy_controller(controller);
             controller.setAllLabels(ocenyKoncoweEntity);
+            controller.setOcenyEntity_tmp(ocenyKoncoweEntity);
             controller.setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
         }
         catch (Exception e) {

@@ -49,7 +49,11 @@ public class SubjectsFormController implements Initializable {
     @FXML
     private TableColumn <RealizacjeEntity,String> tableViewSubjects_term;
 
+    private SubjectsFormController my_controller;
 
+    public void setMy_controller(SubjectsFormController parent_controller) {
+        this.my_controller = parent_controller;
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addToComboBox();
@@ -136,6 +140,8 @@ public class SubjectsFormController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
             StudentsListController controller = (StudentsListController) fxmlLoader.getController();
+            controller.setParent_controller(my_controller);
+            controller.setMy_controller(controller);
             controller.setAllLabels(realizacjeEntity);
             controller.setTableViewFinalDegree(Teacher.getInstance().listOcenyKoncowe(realizacjeEntity.getKodPrzedmiotu(),realizacjeEntity.getRok(),realizacjeEntity.getRodzajSemestru()));
         }

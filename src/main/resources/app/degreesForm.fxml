@@ -14,7 +14,7 @@
                 <Label fx:id="label1" text="Label" />
                 <Label fx:id="label2" text="Label" />
                 <Label fx:id="label3" text="Label" />
-                <Button fx:id="button1" mnemonicParsing="false" text="Button" />
+                <Button fx:id="button1" mnemonicParsing="false" onAction="#onClickButton" text="Button" />
             </children>
         </VBox>
     </top>

@@ -2,10 +2,12 @@ package app_logic;
 
 import bd.Teacher;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import mapping.OcenyEntity;
 import mapping.OcenyKoncoweEntity;
 
@@ -46,6 +48,19 @@ public class updateDegreeFormController  implements Initializable {
 
     private OcenyEntity ocenyEntity_tmp;
 
+    private DegreesFormController parent_controller;
+
+    public void setParent_controller(DegreesFormController parent_controller) {
+        this.parent_controller = parent_controller;
+    }
+
+    private updateDegreeFormController my_controller;
+
+    public void setMy_controller(updateDegreeFormController my_controller) {
+        this.my_controller = my_controller;
+    }
+
+
     public void setOcenyEntity_tmp(OcenyEntity ocenyEntity_tmp) {
         this.ocenyEntity_tmp = ocenyEntity_tmp;
     }
@@ -65,10 +80,15 @@ public class updateDegreeFormController  implements Initializable {
     }
 
     public void onClickOk () {
-       Teacher.getInstance().updateDegree(ocenyEntity_tmp.getIdOceny() ,"oooo");
+        String tmp =text_field3.getText();
+        Teacher.getInstance().updateDegree(ocenyEntity_tmp.getIdOceny() ,tmp);
+        Stage stage =(Stage) button_cancel.getScene().getWindow();
+        stage.close();
+        parent_controller.updateTableView();
     }
     public void onClickCancel () {
-
+        Stage stage =(Stage) button_cancel.getScene().getWindow();
+        stage.close();
     }
     public void setTextFields(String str1, String str2) {
         text_field2.setText(str1);

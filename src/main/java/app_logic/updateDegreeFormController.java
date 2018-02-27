@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mapping.OcenyEntity;
 import mapping.OcenyKoncoweEntity;
+import mapping.OcenyKoncoweEntityPK;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -80,11 +81,16 @@ public class updateDegreeFormController  implements Initializable {
     }
 
     public void onClickOk () {
-        String tmp =text_field3.getText();
-        Teacher.getInstance().updateDegree(ocenyEntity_tmp.getIdOceny() ,tmp);
+        String string_tmp =text_field3.getText();
+        String degree_tmp =text_field2.getText();
+        Teacher.getInstance().updateDegree(ocenyEntity_tmp.getIdOceny() ,string_tmp,Double.parseDouble(degree_tmp));
+
+        //updateFinalDegree
         Stage stage =(Stage) button_cancel.getScene().getWindow();
         stage.close();
         parent_controller.updateTableView();
+        parent_controller.updateAverageInFinalDegree();
+        //parent_controller.getParent_controller().updateTableView();
     }
     public void onClickCancel () {
         Stage stage =(Stage) button_cancel.getScene().getWindow();

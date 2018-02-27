@@ -143,6 +143,7 @@ public class SubjectsFormController implements Initializable {
             controller.setParent_controller(my_controller);
             controller.setMy_controller(controller);
             controller.setAllLabels(realizacjeEntity);
+            controller.setRealizacjeEntity_tmp(realizacjeEntity);
             controller.setTableViewFinalDegree(Teacher.getInstance().listOcenyKoncowe(realizacjeEntity.getKodPrzedmiotu(),realizacjeEntity.getRok(),realizacjeEntity.getRodzajSemestru()));
         }
         catch (Exception e) {

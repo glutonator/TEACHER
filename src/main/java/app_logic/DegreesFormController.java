@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mapping.OcenyEntity;
 import mapping.OcenyKoncoweEntity;
+import mapping.OcenyKoncoweEntityPK;
 import mapping.RealizacjeEntity;
 
 import java.net.URL;
@@ -53,25 +54,27 @@ public class DegreesFormController implements Initializable {
     private TableColumn<OcenyEntity, String> tableViewDegrees_4;
 
 
-    private OcenyKoncoweEntity ocenyEntity_tmp;
+    private OcenyKoncoweEntity ocenyKoncoweEntity;
 
     private StudentsListController parent_controller;
 
     public void setParent_controller(StudentsListController parent_controller) {
         this.parent_controller = parent_controller;
     }
+
+    public StudentsListController getParent_controller() {
+        return parent_controller;
+    }
+
     private DegreesFormController my_controller;
 
     public void setMy_controller(DegreesFormController my_controller) {
         this.my_controller = my_controller;
     }
 
-    public void setOcenyEntity_tmp(OcenyKoncoweEntity ocenyEntity_tmp) {
-        this.ocenyEntity_tmp = ocenyEntity_tmp;
+    public void setOcenyEntity_tmp(OcenyKoncoweEntity ocenyKoncoweEntity) {
+        this.ocenyKoncoweEntity = ocenyKoncoweEntity;
     }
-    //    public void setOcenyEntity_tmp(ArrayList<OcenyEntity> ocenyEntity_tmp) {
-//        this.ocenyEntity_tmp = ocenyEntity_tmp;
-//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -99,7 +102,6 @@ public class DegreesFormController implements Initializable {
     }
 
     public void setTableViewDegree(ArrayList<OcenyEntity> final_degree) {
-        //setOcenyEntity_tmp(final_degree);
         ObservableList obList2 = FXCollections.observableList(final_degree);
 
         tableViewDegrees.setItems(obList2);
@@ -123,6 +125,7 @@ public class DegreesFormController implements Initializable {
             controller.setMy_controller(controller);
             controller.setAllLabels(ocenyEntity);
             controller.setOcenyEntity_tmp(ocenyEntity);
+
             //controller.setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
         }
         catch (Exception e) {
@@ -135,8 +138,27 @@ public class DegreesFormController implements Initializable {
     }
     public void updateTableView() {
         System.out.println("cos sie dzieje");
-        setTableViewDegree(Teacher.getInstance().listOceny(ocenyEntity_tmp.getKodPrzedmiotu(),ocenyEntity_tmp.getRok(),ocenyEntity_tmp.getRodzajSemestru(),ocenyEntity_tmp.getIdStudenta()));
+        setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
         //ObservableList<OcenyEntity> data = FXCollections.observableList(ocenyEntity_tmp);
         //tableViewDegrees.setItems(data);
+    }
+
+    public void updateAverageInFinalDegree() {
+        double average =Teacher.getInstance().averageOcenyEntity(ocenyKoncoweEntity);
+        System.out.println(average);
+
+        OcenyKoncoweEntityPK ocenyKoncoweEntityPK=new OcenyKoncoweEntityPK();
+        ocenyKoncoweEntityPK.setIdStudenta(ocenyKoncoweEntity.getIdStudenta());
+        ocenyKoncoweEntityPK.setKodPrzedmiotu(ocenyKoncoweEntity.getKodPrzedmiotu());
+        ocenyKoncoweEntityPK.setRok(ocenyKoncoweEntity.getRok());
+        ocenyKoncoweEntityPK.setRodzajSemestru(ocenyKoncoweEntity.getRodzajSemestru());
+
+        Teacher.getInstance().updateFinalDegree(ocenyKoncoweEntityPK,average);
+
+    }
+
+    public void shutdown() {
+        System.out.println("to jest tottttttttt");
+        parent_controller.updateTableView();
     }
 }

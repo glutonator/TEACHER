@@ -30,7 +30,7 @@ public class Teacher {
         System.out.println("setup completed");
     }
 
-    public ArrayList listPrzedmioty() {
+    public ArrayList<PrzedmiotyEntity> listPrzedmioty() {
         Transaction tx = null;
         ArrayList<PrzedmiotyEntity> subjects_obj = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class Teacher {
         return subjects_obj;
     }
 
-    public ArrayList listOcenyKoncowe(String subject, long year, String term) {
+    public ArrayList<OcenyKoncoweEntity> listOcenyKoncowe(String subject, long year, String term) {
         Transaction tx = null;
         ArrayList<OcenyKoncoweEntity> degree_final_obj = new ArrayList<>();
 
@@ -88,7 +88,7 @@ public class Teacher {
         return degree_final_obj;
     }
 
-    public ArrayList listOceny(String subject, long year, String term, int idStud ) {
+    public ArrayList<OcenyEntity> listOceny(String subject, long year, String term, int idStud ) {
         Transaction tx = null;
         ArrayList<OcenyEntity> degree_final_obj = new ArrayList<>();
 
@@ -114,15 +114,50 @@ public class Teacher {
         return degree_final_obj;
     }
 
-    public void updateDegree(long ocenyEntityId,String comment ) {
+    public void updateDegree(long ocenyEntityId,String comment, double degree ) {
 
         Transaction tx = null;
 
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
             OcenyEntity ocenyEntity =(OcenyEntity) session.get(OcenyEntity.class,ocenyEntityId);
-            ocenyEntity.setKomentarz(comment);
+            if(!(comment==null && ocenyEntity.getKomentarz()==null)) {
+                ocenyEntity.setKomentarz(comment);
+            }
+            else {
+                ocenyEntity.setKomentarz("");
+            }
+            ocenyEntity.setWartosc(degree);
             session.update(ocenyEntity);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public double averageOcenyEntity(OcenyKoncoweEntity ocenyKoncoweEntity) {
+        ArrayList<OcenyEntity> list_degrees=Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta());
+        double sum=0;
+        int count=0;
+        for (OcenyEntity tmp : list_degrees) {
+            double degree=tmp.getWartosc();
+            int weight=(int)tmp.getTypyOcenByIdTypuOceny().getWaga();
+            sum+=(degree*weight);
+            count+=weight;
+        }
+        double average=sum/count;
+        return average;
+    }
+
+    public void updateFinalDegree(OcenyKoncoweEntityPK ocenyKoncoweEntityPK,double final_degree) {
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+            OcenyKoncoweEntity ocenyKoncoweEntity =(OcenyKoncoweEntity) session.get(OcenyKoncoweEntity.class,ocenyKoncoweEntityPK);
+            ocenyKoncoweEntity.setOcenaKoncowa(final_degree);
+            session.update(ocenyKoncoweEntity);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();

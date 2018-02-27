@@ -70,6 +70,12 @@ public class StudentsListController implements Initializable {
         this.my_controller = my_controller;
     }
 
+    private RealizacjeEntity realizacjeEntity_tmp;
+
+    public void setRealizacjeEntity_tmp(RealizacjeEntity realizacjeEntity_tmp) {
+        this.realizacjeEntity_tmp = realizacjeEntity_tmp;
+    }
+
     public StudentsListController() {
     }
 
@@ -102,9 +108,6 @@ public class StudentsListController implements Initializable {
     public void onClickButton() {
     }
     public void setTableViewFinalDegree(ArrayList<OcenyKoncoweEntity> final_degree) {
-//        for ( OcenyKoncoweEntity yyy: final_degree) {
-//            System.out.println(yyy);
-//        }
         ObservableList obList2 = FXCollections.observableList(final_degree);
 
         tableViewFinalDegree.setItems(obList2);
@@ -130,11 +133,16 @@ public class StudentsListController implements Initializable {
             controller.setMy_controller(controller);
             controller.setAllLabels(ocenyKoncoweEntity);
             controller.setOcenyEntity_tmp(ocenyKoncoweEntity);
+            //event on closing window - update of tableview
+            stage.setOnCloseRequest(e->controller.shutdown());
             controller.setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void updateTableView() {
+        setTableViewFinalDegree(Teacher.getInstance().listOcenyKoncowe(realizacjeEntity_tmp.getKodPrzedmiotu(),realizacjeEntity_tmp.getRok(),realizacjeEntity_tmp.getRodzajSemestru()));
     }
 
 }

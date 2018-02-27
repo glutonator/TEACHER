@@ -76,4 +76,9 @@ public class PrzedmiotyEntity {
     public void setTypyOcensByKodPrzedmiotu(Collection<TypyOcenEntity> typyOcensByKodPrzedmiotu) {
         this.typyOcensByKodPrzedmiotu = typyOcensByKodPrzedmiotu;
     }
+
+    @Override
+    public String toString() {
+        return getKodPrzedmiotu();
+    }
 }

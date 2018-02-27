@@ -98,8 +98,9 @@ public class SubjectsFormController implements Initializable {
 
     public void onClickComboBox() {
         PrzedmiotyEntity value = (PrzedmiotyEntity) comboBoxSubjects.getValue();
-        comboBoxSubjects.setPromptText(value.getKodPrzedmiotu());
-        comboBoxSubjects.setAccessibleText(value.getKodPrzedmiotu());
+        //comboBoxSubjects.setButtonCell(value);
+        //comboBoxSubjects.setPromptText(value.getKodPrzedmiotu());
+        //comboBoxSubjects.setAccessibleText(value.getKodPrzedmiotu());
         setLabel(label1,value.getKodPrzedmiotu());
         setLabel(label2,value.getNazwa());
         setLabel(label3,value.getOpis());

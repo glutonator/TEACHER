@@ -20,7 +20,6 @@ public class TeacherWindow extends Application {
         Parent root =(Parent) fxmlLoader.load();
         SubjectsFormController controller = (SubjectsFormController) fxmlLoader.getController();
         controller.setMy_controller(controller);
-        //Parent root = FXMLLoader.load(getClass().getResource("/app/subjectsForm.fxml"));
         primaryStage.setTitle("hello everyone");
         primaryStage.setScene(new Scene(root, 800,500));
         primaryStage.show();

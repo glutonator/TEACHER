@@ -100,9 +100,9 @@ public class StudentsListController implements Initializable {
     }
 
     public void setAllLabels(RealizacjeEntity realizacjeEntity) {
-        setLabel(label1,realizacjeEntity.getKodPrzedmiotu());
-        setLabel(label2,String.valueOf(realizacjeEntity.getRok()));
-        setLabel(label3,realizacjeEntity.getRodzajSemestru());
+        setLabel(label1,"Kod przedmiotu:  "+realizacjeEntity.getKodPrzedmiotu());
+        setLabel(label2,"Rok realizacji:  " +String.valueOf(realizacjeEntity.getRok()));
+        setLabel(label3,"Rodzaj semestru:  "+ realizacjeEntity.getRodzajSemestru());
     }
 
     public void onClickButton() {

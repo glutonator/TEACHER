@@ -36,9 +36,6 @@ public class DegreesFormController implements Initializable {
     private Label label3;
 
     @FXML
-    private Button button1;
-
-    @FXML
     private TableView tableViewDegrees;
 
     @FXML
@@ -96,9 +93,9 @@ public class DegreesFormController implements Initializable {
     }
 
     public void setAllLabels(OcenyKoncoweEntity ocenyKoncoweEntity) {
-        setLabel(label1,ocenyKoncoweEntity.getStudenciByIdStudenta().getNrAlbumu());
-        setLabel(label2,ocenyKoncoweEntity.getStudenciByIdStudenta().getNazwisko());
-        setLabel(label3,ocenyKoncoweEntity.getStudenciByIdStudenta().getImie());
+        setLabel(label1,"Nr Albumu:  " + ocenyKoncoweEntity.getStudenciByIdStudenta().getNrAlbumu());
+        setLabel(label2,"Nazwisko:  " + ocenyKoncoweEntity.getStudenciByIdStudenta().getNazwisko());
+        setLabel(label3,"Imię:  "+ocenyKoncoweEntity.getStudenciByIdStudenta().getImie());
     }
 
     public void setTableViewDegree(ArrayList<OcenyEntity> final_degree) {
@@ -133,9 +130,6 @@ public class DegreesFormController implements Initializable {
         }
     }
 
-    public void onClickButton () {
-        updateTableView();
-    }
     public void updateTableView() {
         System.out.println("cos sie dzieje");
         setTableViewDegree(Teacher.getInstance().listOceny(ocenyKoncoweEntity.getKodPrzedmiotu(),ocenyKoncoweEntity.getRok(),ocenyKoncoweEntity.getRodzajSemestru(),ocenyKoncoweEntity.getIdStudenta()));

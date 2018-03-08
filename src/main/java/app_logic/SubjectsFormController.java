@@ -98,12 +98,9 @@ public class SubjectsFormController implements Initializable {
 
     public void onClickComboBox() {
         PrzedmiotyEntity value = (PrzedmiotyEntity) comboBoxSubjects.getValue();
-        //comboBoxSubjects.setButtonCell(value);
-        //comboBoxSubjects.setPromptText(value.getKodPrzedmiotu());
-        //comboBoxSubjects.setAccessibleText(value.getKodPrzedmiotu());
-        setLabel(label1,value.getKodPrzedmiotu());
-        setLabel(label2,value.getNazwa());
-        setLabel(label3,value.getOpis());
+        setLabel(label1,"Kod przedmiotu:  "+value.getKodPrzedmiotu());
+        setLabel(label2,"Nazwa przedmiotu:  "+value.getNazwa());
+        setLabel(label3,"Opis przedmiotu:  "+value.getOpis());
         setTableViewSubjects(value);
     }
 
@@ -113,9 +110,7 @@ public class SubjectsFormController implements Initializable {
 
     public void setTableViewSubjects(PrzedmiotyEntity subject) {
         Collection<RealizacjeEntity> realizacjesByKodPrzedmiotu = subject.getRealizacjesByKodPrzedmiotu();
-//        for ( RealizacjeEntity yyy: realizacjesByKodPrzedmiotu) {
-//            System.out.println(yyy);
-//        }
+
         ObservableList obList2 = FXCollections.observableList(new ArrayList<RealizacjeEntity>(realizacjesByKodPrzedmiotu));
 
         tableViewSubjects.setItems(obList2);
@@ -124,10 +119,6 @@ public class SubjectsFormController implements Initializable {
 
     }
 
-    public void onClickButtonStudentsListWidnow () {
-        //Teacher.getInstance().listOcenyKoncowe("MAT",2017,"Z");
-
-    }
     public void onDoubleClickStudentsListWidnow (RealizacjeEntity realizacjeEntity) {
 
         try{
@@ -135,8 +126,6 @@ public class SubjectsFormController implements Initializable {
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            //stage.initModality(Modality.WINDOW_MODAL);
-            //stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle("Lista studentów");
             stage.setScene(new Scene(root1));
             stage.show();
